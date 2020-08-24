@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>太极图</title>
+  <style>
+    #yin-yang{
+      margin: 100px auto;
+      width: 96px;
+      height: 192px;
+      border-width: 4px 100px 4px 4px;
+      border-style: solid;
+      border-color: #000;
+      border-radius: 100%;
+      position: relative;
+      animation-duration: 1s;
+      animation-name: rotate;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+    }
+    #yin-yang:before{
+      content: "";/*这一句必须要有，否则before就不可见了，，，，可以理解为。。没有内容就不占空间*/
+      width: 24px;
+      height: 24px;
+      background-color: white;
+      border: 36px solid black;
+      border-radius: 100%;
+      position: absolute;
+      top: 0;
+      left: 50px;
+    }
+    #yin-yang:after{
+      content: "";
+      width: 24px;
+      height: 24px;
+      background-color: black;
+      border: 36px solid white;
+      border-radius: 100%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+    }
+
+    @keyframes rotate {
+      from {
+        transform: rotate(0deg)
+      }
+
+      to {
+        transform: rotate(360deg)
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="yin-yang"></div>
+</body>
+</html>

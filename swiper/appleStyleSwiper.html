@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>苹果风格的轮播</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    *{
+      margin: 0; 
+      padding: 0;
+    }
+    .clearfix::after{
+      content: '';
+      display: block;
+      clear: both;
+    }
+    ul>li{
+      margin: 0;
+      padding: 0;
+      display: inline-block;
+    }
+    body{
+      background-color: rgb(242,242,242);
+    }
+    header h1{
+      font-size: 42px;
+      font-weight: normal;
+      text-align: center;
+      margin-top: 50px;
+      margin-bottom: 50px;
+    }
+    main{
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+    }
+    .display{
+      background-color: white;
+      border: 1px solid white;
+      box-shadow: 0px 0px 1px 2px rgba(217,217,217,1);
+      border-bottom-left-radius: 3px;
+      border-bottom-right-radius: 3px;
+    }
+    .window{
+      width: 700px;
+      overflow: hidden;
+    }
+    .images{
+      transition: all .5s;
+    }
+    img{
+      background-color: blueviolet;
+      vertical-align: top;
+      float: left;
+    }
+    .buttons-container{
+      border-top: 1px solid rgb(224, 224,224);
+      text-align: center;
+      box-shadow: inset 0px 1px 11px 0px rgba(217,217,217,1);
+      background: linear-gradient(to bottom, #fafafa 0%,#ececec 100%);
+    }
+    .buttons{
+      display: table;
+      margin: auto;
+    }
+    .buttons>li{
+      margin-top: -1px;
+      height: 45px;
+      line-height: 45px;
+      width: 59px;
+      float: left;
+      position: relative;
+      border-right: 2px solid;
+      border-image: linear-gradient(to right,#ddd, #fff) 1 100%;
+    }
+    .buttons>li:nth-child(1){
+      border-left: 2px solid;
+    }
+    .buttons>li:hover{
+      background-color: rgba(255,255,255,.3);
+    }
+    .buttons>li.active{
+      background: radial-gradient(ellipse at center, #ececec 5%,#b7b7b7 188%);  
+      position: relative;
+    }
+    .buttons>li.active::after{
+      content: '';
+      display: block;
+      border: 5px solid transparent;
+      border-top-color: white;
+      width: 0;
+      height: 0;
+      position: absolute;
+      left: 50%;
+      top: 0;
+      transform: translateX(-50%);
+    }
+    footer{
+      text-align: center;
+      margin-top: 50px;
+      margin-bottom: 200px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>苹果风格的轮播</h1>
+  </header>
+  <main>
+    <div class="display">
+      <div class="window">
+        <div class="images clearfix" id="images" style="width: 2800px"> 
+          <img src="https://i.loli.net/2020/08/25/A8dC3DteIuWJXUH.jpg" alt="" id="img1" width=700>
+          <img src="https://i.loli.net/2020/08/25/3XSto2RBJWaIUN6.jpg" alt="" id="img2" width=700>
+          <img src="https://i.loli.net/2020/08/25/doSWNPmyRbrxB6v.jpg" alt="" id="img3" width=700>
+          <img src="https://i.loli.net/2020/08/25/HPBbdLfezovjAiE.jpg" alt="" id="img4" width=700>
+        </div>
+      </div>
+      <div class="buttons-container">
+        <ul class="buttons clearfix">
+          <li class="active">1</li>
+          <li>2</li>
+          <li>3</li>
+          <li>4</li>
+        </ul>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <p>这是一个苹果风格的轮播图，点击切换</p>
+  </footer>
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+  <script>
+    var buttons = $('ul.buttons>li')
+    for (let i = 0; i < buttons.length; i++) {
+      buttons.eq(i).on('click', () => {
+        buttons.eq(i).siblings().removeClass('active')
+        buttons.eq(i).addClass('active')
+        images.style.transform = 'translateX(' + (-700) * i + 'px)'
+      })
+    }
+  </script>
+
+  </body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>无缝的轮播</title>
+  <style>
+    *{
+      margin: 0;
+      border: 0;
+      box-sizing: border-box;
+    }
+    .window{
+      margin: 20px auto;
+      width: 300px;
+      overflow: hidden;
+    }
+    .images{
+      display: flex;
+      transition: all .5s;
+      transform: translateX(-300px);
+    }
+    .buttons{
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="window">
+        <div class="images">
+          <img src="https://i.loli.net/2020/08/25/A8dC3DteIuWJXUH.jpg" alt="图片1" width="300">
+          <img src="https://i.loli.net/2020/08/25/3XSto2RBJWaIUN6.jpg" alt="图片2" width="300">
+          <img src="https://i.loli.net/2020/08/25/doSWNPmyRbrxB6v.jpg" alt="图片3" width="300">
+          <img src="https://i.loli.net/2020/08/25/HPBbdLfezovjAiE.jpg" alt="图片4" width="300">
+        </div>
+        <div style="text-align: center">
+          <button id="previous">上一张</button>
+          <button id="next">下一张</button>
+        </div>
+        <div class="buttons">
+          <button>按钮1</button>
+          <button>按钮2</button>
+          <button>按钮3</button>
+          <button>按钮4</button>
+        </div>
+      </div>
+  </div>
+  
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script>
+    let $buttons = $('.buttons>button')
+    let $images = $('.images > img')
+    let $wrapper = $('.images')
+    let current = 0
+
+    setInitialise()
+    sildes($buttons, $wrapper)
+    $('#previous').on('click', function () {
+      goToSilde(current - 1)
+    })
+    $('#next').on('click', function () {
+      goToSilde(current + 1)
+    })
+    var timer = setInterval(function () {
+      goToSilde(current + 1)
+    }, 1500)
+
+    $('.container').on('mouseenter', function () {
+      clearInterval(timer)
+    })
+    $('.container').on('mouseleave', function () {
+      timer = setInterval(function () {
+        goToSilde(current + 1)
+      }, 1000)
+    })
+
+    function sildes($buttons, $wrapper) {
+      $('.buttons').on('click', 'button', function (e) {  //或者是用for循环为每个button添加click事件
+        let $button = $(e.currentTarget)
+        let index = $button.index() //获取它的index
+        goToSilde(index)
+      })
+    }
+    function goToSilde(index) {  //index是你点击的，current是之前的
+      if (index > $buttons.length - 1) {
+        index = 0
+      } else if (index < 0) {
+        index = $buttons.length - 1
+      }
+      if (index === 0 && current === $buttons.length - 1) { //从最后一张跳到第一张
+        $wrapper.css('transform', `translateX(${($buttons.length + 1) * -300}px)`)
+          .one('transitionend', function () {
+            $wrapper.hide().offset()
+            $wrapper.css('transform', 'translateX(-300px)').show()
+          })
+      } else if (index === $buttons.length - 1 && current === 0) { //从第一张跳到最后一张
+        $wrapper.css({ transform: 'translateX(0px)' })
+          .one('transitionend', function () {
+            $wrapper.hide().offset()  //阻止操作合并。offset获取元素偏移坐标，不支持获取隐藏元素的。
+            $wrapper.css('transform', `translateX(${$buttons.length * -300}px)`).show()
+          })
+      } else {
+        $wrapper.css('transform', `translateX(${(index + 1) * -300}px)`)
+      }
+      current = index
+    }
+    function setInitialise() {
+      let $firstChild = $images.eq(0).clone(true)
+      let $lastChild = $images.eq($images.length - 1).clone(true)
+      $wrapper.append($firstChild)
+      $wrapper.prepend($lastChild)
+    }
+  </script>
+</body>
+</html>

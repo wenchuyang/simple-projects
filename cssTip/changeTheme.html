@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<meta name="robots" content="noindex">
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>change theme</title>
+  <style id="jsbin-css">
+    body {
+      --main-color: hsl(11, 58%, 56%);
+      --color-top: hsl(11, 35%, 56%);
+      --color-right: hsl(11, 72%, 56%);
+      --color-bottom: hsl(11, 58%, 24%);
+      --color-left: hsl(11, 58%, 72%);
+    }
+    .primary {
+      --main-color: hsl(80, 58%, 56%);
+      --color-top: hsl(80, 35%, 56%);
+      --color-right: hsl(80, 72%, 56%);
+      --color-bottom: hsl(80, 58%, 24%);
+      --color-left: hsl(80, 58%, 72%);
+    }
+    .secondary {
+      --main-color: hsl(260, 58%, 56%);
+      --color-top: hsl(260, 35%, 56%);
+      --color-right: hsl(260, 72%, 56%);
+      --color-bottom: hsl(260, 58%, 24%);
+      --color-left: hsl(260, 58%, 72%);
+    }
+    .test {
+      width: 100px;
+      height: 100px;
+      background-color: var(--main-color);
+      border-top: 50px solid var(--color-top);
+      border-right: 50px solid var(--color-right);
+      border-bottom: 50px solid var(--color-bottom);
+      border-left: 50px solid var(--color-left)
+    }
+  </style>
+</head>
+
+<body id="body">
+  <div class="test" id="test"></div>
+  <button id="primary">primary</button>
+  <button id="secondary">secondary</button>
+  <script>
+    document.getElementById("primary").addEventListener("click", () => {
+      document.getElementById("body").classList.remove("secondary");
+      document.getElementById("body").classList.add("primary");
+    })
+    document.getElementById("secondary").addEventListener("click", () => {
+      document.getElementById("body").classList.remove("primary");
+      document.getElementById("body").classList.add("secondary");
+    })
+  </script>
+</body>
+
+</html>

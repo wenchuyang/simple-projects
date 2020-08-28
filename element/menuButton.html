@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://js.jirengu.com
+
+Copyright (c) 2019 by wenchuyang (http://js.jirengu.com/wukiy/2/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+<meta name="description" content="[小样式]" />
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+<style id="jsbin-css">
+.toggle {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    font-size: 63%;
+    letter-spacing: -0.1em;
+    text-align: center;
+    width: 60px;
+}
+.toggle div {
+    width: 50px;
+    height: 22px;
+    display: inline-block;
+    position: relative;
+}
+.toggle span:first-child {
+    top: 0;
+}
+.toggle span:nth-child(2) {
+    top: 10px;
+}
+.toggle span:nth-child(3) {
+    top: 20px;
+}
+.toggle span {
+    left: 9px;
+}
+.toggle span {
+    display: block;
+    width: 32px;
+    height: 2px;
+    background: #444;
+    transition: 0.2s ease-in-out;
+    position: absolute;
+}
+.toggle div:after {
+    content: "打开";
+    display: block;
+    margin: 30px 0 0 0;
+}
+.toggle:hover span:first-child {
+    top: -3px;
+}
+.toggle:hover span:nth-child(3) {
+    top: 23px;
+}
+.toggle.active span:first-child {
+    transform: rotate(-45deg);
+    top: 10px;
+}
+.toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+.toggle.active span:nth-child(3) {
+    transform: rotate(45deg);
+    top: 10px;
+}
+.toggle.active div:after {
+    content: "关闭";
+    display: block;
+    margin: 30px 0 0 0;
+}
+
+</style>
+</head>
+<body>
+<nav>
+    <div class="toggle">
+      <div><span></span><span></span><span></span></div>
+    </div>
+  
+<script id="jsbin-javascript">
+$(".toggle").on("click", function() {
+  $(".toggle").toggleClass("active");
+});
+</script>
+</body>
+</html>

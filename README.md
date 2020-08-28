@@ -20,3 +20,6 @@
 ### 苹果风格的轮播(/swiper/appleStyle.html)
 ## css小技巧(/cssTip)
 ### 修改主题颜色(/cssTip/changeTheme.html)
+## 动态画图(/css-picture-animation)
+使用css画的一些图片，以及使用js展示图片的制作过程
+### 龙猫(/totoro)

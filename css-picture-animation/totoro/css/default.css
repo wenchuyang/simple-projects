@@ -1,0 +1,102 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+pre{
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+main{
+  display: flex;
+  flex-direction: column;
+}
+.speed{
+  position: absolute;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+}
+.speed>button{
+  margin: 10px;
+  padding: 10px;
+}
+.speed>button.active{
+  box-shadow: 1px 1px 1px 0 rgba(0, 0, 0, .8);
+}
+.code{
+  width: 100vw;
+  height: 50vh;
+  padding: 8px 12px;
+  background-color: #ddd;
+  overflow: auto;
+  -ms-overflow-style: none;
+  overflow: -moz-scrollbars-none; 
+}
+.code::-webkit-scrollbar { width: 0 !important }
+.picture{
+  width: 100vw;
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.totoro{
+  position: relative;
+  width: 208px;
+  height: 290px;
+}
+.ear{
+  width: 24px;
+  height: 44px;
+  position: absolute;
+  border-radius: 50%;
+}
+.head{
+  position: absolute;
+  width: 114px;
+  height: 100px;
+}
+.eye{
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  display: flex;
+  align-items: center;
+}
+.eyeball{
+  position: absolute;
+  width: 8px;
+  height: 8px;
+}
+.uppernose{
+  position: absolute;
+  width: 38px;
+  height: 20px;
+}
+.mustache{
+  position: absolute;
+  width: 30px;
+  height: 2px;
+}
+.body{
+  position: absolute;
+  width: 188px;
+  height: 208px;
+}
+.arm{
+  position: absolute;
+  width: 48px;
+  height: 140px;
+}
+.belly{
+  position: absolute;
+  width: 150px;
+  height: 150px;
+}
+.foot{
+  position: absolute;
+  width: 120px;
+  height: 26px;
+}

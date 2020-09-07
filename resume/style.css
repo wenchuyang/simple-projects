@@ -10,48 +10,58 @@ body, div, span, header, footer, nav, section, aside, article, ul, dl, dt, dd, l
     -webkit-tap-highlight-color: transparent;
 }
 
-body:focus, div:focus, span:focus, header:focus, footer:focus, nav:focus, section:focus, aside:focus, article:focus, ul:focus, dl:focus, dt:focus, dd:focus, li:focus, a:focus, p:focus, h1:focus, h2:focus, h3:focus, h4:focus, h5:focus, i:focus, b:focus, textarea:focus, button:focus, input:focus, select:focus {
+body {
+    font-size: 16px;
+}
+
+textarea:focus, button:focus, input:focus, select:focus {
     outline: none;
 }
 
-body {
-    --background-color: #ccc;
-    --background-light: #eee;
-    --main-white: white;
-}
-
 .head {
-    background-color: var(--background-color);
-    color: var(--main-white);
+    padding: 1rem 3rem 0.4rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #bbb;
+    color: #fff;
 }
 
-.wave {
-    height: 28px;
-    width: 100%;
-    background: radial-gradient(circle at 50% 50%, var(--background-color) 0, var(--background-color) 66%, transparent 0);
-    background-repeat: repeat-x;
-    background-size: 40px 48px;
-    background-position: 0 -24px;
-    background-color: transparent;
+.head .title {
+    font-weight: bold;
+    font-size: 2rem;
 }
 
-.main-info {
+.head .description {
+    margin-left: 1.6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.decorate {
     position: relative;
-    margin-top: 150px;
-    width: 30%;
-    height: 500px;
-    background-color: var(--background-light);
+}
+.wave {
+    height: 1.8rem;
+    width: 100%;
+    background: radial-gradient(circle at 50% 50%, #bbb 0, #bbb 66%, transparent 0);
+    background-repeat: repeat-x;
+    background-size: 2.5rem 3rem;
+    background-position: 0 -1.5rem;
+    background-color: transparent;
 }
 
 .hook {
     position: absolute;
-    top: 0;
+    top: 100%;
     left: 50%;
     transform: translateX(-50%);
     transform: translateY(-100%);
     height: 150px;
     width: 8px;
-    background-color: var(--background-color);
+    background-color: #bbb;
 }
 
 .hook::after {
@@ -62,10 +72,21 @@ body {
     left: 0;
     transform: translate(-41%, -100%);
     /* x值需要重新确定*/
-    border: 24px solid var(--background-color);
+    border: 24px solid #bbb;
     border-top-color: transparent;
     border-left-color: transparent;
     border-right-color: transparent;
+}
+
+.info-wrapper {
+    display: flex;
+    justify-content: space-around;    
+}
+
+.main-info {
+    position: relative;
+    margin-top: 150px;
+    background-color: #ccc;
 }
 
 .part .title {
@@ -78,7 +99,7 @@ body {
 .item1 {
     border-top-left-radius: 150px;
     border-bottom-left-radius: 150px;
-    background-color: #ccc;
+    background-color: #bbb;
     min-width: 12%;
     height: 100%;
     line-height: 50px;

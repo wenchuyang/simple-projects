@@ -6,12 +6,13 @@ body, div, span, header, footer, nav, section, aside, article, ul, dl, dt, dd, l
     text-decoration: none;
     border: none;
     box-sizing: border-box;
-    font-family: 'Microsoft YaHei';
+    font-family: "Gill Sans", sans-serif,'Microsoft YaHei';
     -webkit-tap-highlight-color: transparent;
 }
 
 body {
     font-size: 16px;
+    font-family: "Gill Sans", sans-serif;
 }
 
 textarea:focus, button:focus, input:focus, select:focus {
@@ -63,7 +64,9 @@ textarea:focus, button:focus, input:focus, select:focus {
 .info-wrapper .photo .photo-inner {
     width: 100%;
 }
-
+.info-wrapper .info {
+    position: relative;
+}
 .info-wrapper .info-inner {
     width: 100%;
     height: 100%;
@@ -78,24 +81,32 @@ textarea:focus, button:focus, input:focus, select:focus {
     content: "";
     display: block;
     position: absolute;
+    top: -6rem;
     width: 3.2%;
-    height: 5.2rem;
+    height: 6rem;
     background-color: #bbb;
 }
-.info-wrapper .info {
-    top: -5.2rem;
+.info-wrapper .info::before {
     left: 20%;
 }
-
+.info-wrapper .info-inner::before {
+    right: 20%;
+}
 .info-wrapper .info-inner::after, .info-wrapper .info::after {
     content: "";
     display: block;
     position: absolute;
     top: -2rem;
-    left: 21.6%;
-    transform: translateX(-50%);
     border: 1rem solid transparent;
     border-bottom-color: #bbb;
+}
+.info-wrapper .info::after {
+    left: 21.6%;
+    transform: translateX(-50%);
+}
+.info-wrapper .info-inner::after {
+    right: 21.6%;
+    transform: translateX(50%);
 }
 
 .info-wrapper .info .title {
@@ -103,81 +114,61 @@ textarea:focus, button:focus, input:focus, select:focus {
     font-size: 2rem;
 }
 
-.personal {
-    position: relative;
+.info-wrapper .personal {
+    width: 28%;
+}
+.info-wrapper .contact {
+    width: 38%;
 }
 
-/* .hook {
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    transform: translateY(-100%);
-    height: 150px;
-    width: 8px;
-    background-color: #bbb;
+.part {
+    margin: 0.6rem 1.2rem;
 }
-
-.hook::after {
-    content: "";
-    display: block;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    transform: translate(-41%, -100%);
-    /* x值需要重新确定*/
-
-/* border: 24px solid #bbb;
-    border-top-color: transparent;
-    border-left-color: transparent;
-    border-right-color: transparent;
-} */
 
 .part .title {
     position: relative;
     height: 50px;
     display: flex;
     align-items: center;
+    color: #fff;
 }
 
 .item1 {
     border-top-left-radius: 150px;
     border-bottom-left-radius: 150px;
     background-color: #bbb;
-    min-width: 12%;
+    min-width: 18%;
     height: 100%;
     line-height: 50px;
     padding: 0 20px;
 }
 
 .item2 {
-    min-width: 20%;
+    min-width: 24%;
     height: 100%;
     padding: 0 20px;
     line-height: 50px;
-    background-color: #bbb;
+    background-color: #ccc;
     position: relative;
 }
 
 .item2::before {
     content: "";
     display: block;
-    border: 25px solid #bbb;
+    border: 25px solid #ccc;
     border-right-color: transparent;
     border-top-color: transparent;
     position: absolute;
     left: 100%;
 }
 
-.item2::after {
+.part .title::after {
     content: "";
     display: block;
     height: 8%;
-    width: 200%;
-    /* width需要确定怎么弄*/
-    background-color: #bbb;
+    width: 68%;
+    background-color: #ccc;
     position: absolute;
-    left: 100%;
-    top: 100%;
-    transform: translateY(-100%);
+    right: 0;
+    bottom: 0;
 }

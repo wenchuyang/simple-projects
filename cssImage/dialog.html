@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<meta name="robots" content="noindex">
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Dialog</title>
+  <style id="jsbin-css">
+    html {
+      font-size: 18px;
+    }
+
+    .new-order {
+      position: relative;
+    }
+
+    .new-order::before {
+      content: "";
+      display: block;
+      position: absolute;
+      z-index: 1;
+      top: 1.8rem;
+      right: 2.5rem;
+      border-top: 0.8rem solid transparent;
+      border-right: 1.4rem solid #0C8B87;
+      border-bottom: 0.8rem solid transparent;
+      border-left: 1.4rem solid transparent;
+      transform: translateX(0) rotate(-45deg) translateY(0);
+    }
+
+    .new-order::after {
+      content: "NEW";
+      display: block;
+      position: absolute;
+      z-index: 2;
+      top: 0;
+      right: 0;
+      padding: 0.2rem 0.6rem 0.2rem 0.4rem;
+      border-radius: 0.6rem;
+      background-color: #0C8B87;
+      color: white;
+      font-size: 1.4rem;
+      font-weight: bold;
+      font-style: italic;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="new-order"></div>
+</body>
+
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<meta name="robots" content="noindex" />
+<html>
+    <head>
+        <meta name="description" content="[小样式]" />
+        <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <meta charset="utf-8" />
+        <title>menuButton</title>
+        <style id="jsbin-css">
+            * {
+            box-sizing: border-box;
+            }
+            .screen {
+            height: 40px;
+            line-height: 40px;
+            width: 300px;
+            padding-left: 10px;
+            border: 1px solid red;
+            }
+            .col {
+            display: flex;
+            width: 300px;
+            height: 40px;
+            }
+            .row {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 18px;
+            border: 1px solid red;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <div class="screen"></div>
+            <div class="col">
+                <span class="row">1</span>
+                <span class="row">2</span>
+                <span class="row">3</span>
+            </div>
+            <div class="col">
+                <span class="row">4</span>
+                <span class="row">5</span>
+                <span class="row">6</span>
+            </div>
+            <div class="col">
+                <span class="row">7</span>
+                <span class="row">8</span>
+                <span class="row">9</span>
+            </div>
+            <div class="col">
+                <span class="row">0</span>
+                <span class="row">.</span>
+                <span class="row">del</span>
+            </div>
+        </div>
+
+        <script id="jsbin-javascript">
+            $(".row").click(function(){
+            
+            let value = $(".screen").text();
+            let num = $(this).text()
+            let integer = 8;  /*几位整数位*/
+            let decimal = 2; // 几位小数
+            
+            if ((value.length === 0 || value === 0) && num === "."){
+                value = "0.00"
+            } else if(num === "del"){
+                value = value.slice(0, value.length-1)
+                value = (+value/10).toFixed(decimal)+""
+            } else if(num !== "." && value.length <= integer+decimal) {
+                value = (+value*10) + (+num)*Math.pow(10, -decimal);
+                value = value.toFixed(decimal)+"";
+            }
+            
+            $(".screen").text(value)
+            
+            })
+        </script>
+    </body>
+</html>

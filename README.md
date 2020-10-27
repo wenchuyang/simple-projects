@@ -26,3 +26,5 @@
 ### 简历(/resume)
 ## 页面元素(/element)
 ### 目录按钮(/menuButton.html)
+### 价格输入计算器(/priceCalculator.html)
+不用输入小数点的价格输入计算器

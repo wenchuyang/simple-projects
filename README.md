@@ -6,6 +6,12 @@
 ### 点击显示浮层(/clickdisappear.html)
 ### 事件捕获与冒泡的可视化(/rainbow.html)
 ## nodejs(/nodejs)
+
+### 使用nodejs做一个服务器
+为了理解nodejs的使用而做的一个简易的服务器，运行命令`node server [端口号]`可以打开服务。
+1. 获取各种请求路径
+2. 
+
 ### 创建文件(/createFile)
 两个文件实现的功能都是一样的，创建一个简单的网站目录和一些文件。为其指定名称，并在index.html、css/style.css和js/main.js中写入一些基本语句。并且在执行之前进行文件夹目录是否存在的判断。如果已经存在的话给出提示并且不继续执行，不存在的话创建文件。
 其中demo.sh是用bash脚本写的，demo.js用nodejs语法。

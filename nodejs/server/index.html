@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Sign Up</title>
+</head>
+<body>
+  <!-- <input type="password" name="psw" id="">
+  <button type="submit">点我提交</button>
+  <p>余额为<span id="amount">&&&amount&&&</span></p> -->
+  <!-- <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+  <script>
+    let button = document.getElementsByTagName('button')[0]
+    button.addEventListener('click', () => {
+      let obj = {
+        method: 'POST',
+        body: 'user=wcy&psw=123',
+        url: '/xxx'        
+      }
+      jQuery.ajax(obj).then(
+        ()=>{alert('success')},
+        ()=>{alert('failed')}
+      )
+    })
+    window.jQuery.ajax = function({method, url, body}){ //解构赋值
+      return new Promise(function(resolve, reject){
+        let request = new XMLHttpRequest()
+        request.onreadystatechange = () => {
+          if(request.readyState === 4){
+            if(request.status >= 200 && request.status <= 300){
+              resolve.call(undefined)
+            }else if(request.status >=400){
+              reject.call(undefined)
+            }       
+          }
+        }
+        request.open(method, url)
+        request.send(body)
+      })  
+    } -->
+  <!-- </script> -->
+</body>
+</html>

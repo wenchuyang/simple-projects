@@ -16,7 +16,11 @@
   - css link 会请求 '/style.css'，返回 css 内容
   - script 会请求 '/main.js'，返回 js 内容
   - 请求 '/', '/style.css', '/main.js' 以外的路径，则一律返回 404 状态码
-3. 
+3. 向后端发送请求并改变前端页面结果
+  - 创建 'money.db' 文件
+  - 在 index.html 中发送 POST 请求，把金额传给后台
+  - 在 server.js 文件中接收请求，读取传过来的数据，把新的金额传给前端并写入数据库 money.db 文件，如果失败则将 success 字段置为 false
+  - 前端拿到后端传过来的结果，根据 success 值进行判断是更新页面数据还是给出提示告诉用户执行失败。
 
 
 ### 创建文件(/createFile)

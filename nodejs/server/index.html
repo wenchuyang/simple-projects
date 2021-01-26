@@ -1,48 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Sign Up</title>
+  <title>Nodejs Test</title>
 </head>
+
 <body>
-  <!-- <input type="password" name="psw" id="">
-  <button type="submit">点我提交</button>
-  <p>余额为<span id="amount">&&&amount&&&</span></p> -->
-  <!-- <script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
-  <script>
-    let button = document.getElementsByTagName('button')[0]
-    button.addEventListener('click', () => {
-      let obj = {
-        method: 'POST',
-        body: 'user=wcy&psw=123',
-        url: '/xxx'        
-      }
-      jQuery.ajax(obj).then(
-        ()=>{alert('success')},
-        ()=>{alert('failed')}
-      )
-    })
-    window.jQuery.ajax = function({method, url, body}){ //解构赋值
-      return new Promise(function(resolve, reject){
-        let request = new XMLHttpRequest()
-        request.onreadystatechange = () => {
-          if(request.readyState === 4){
-            if(request.status >= 200 && request.status <= 300){
-              resolve.call(undefined)
-            }else if(request.status >=400){
-              reject.call(undefined)
-            }       
-          }
+  <!DOCTYPE html>
+  <html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+  </head>
+
+  <body>
+    <p> 我，秦始皇，打钱。你的余额为<span id="amount">&&&amount&&&</span> </p>
+    <input type="submit" value="付款一元" id="button">
+    <script>
+      var httpRequest = new XMLHttpRequest();
+      document.getElementById("button").addEventListener("click", function () {
+        httpRequest.open('POST', '/pay', true);
+        httpRequest.setRequestHeader("Content-type", "application/json");
+        const obj = {
+          "amount": "1"
         }
-        request.open(method, url)
-        request.send(body)
-      })  
-    } -->
-  <!-- </script> -->
+        httpRequest.send(JSON.stringify(obj));
+        httpRequest.onreadystatechange = function () {
+          if (httpRequest.readyState == 4 && httpRequest.status == 200) {
+            let jsonStr = httpRequest.responseText;
+            let json = JSON.parse(jsonStr)
+            if (json.success) {
+              document.getElementById("amount").innerText = json.money
+            } else {
+              alert("打款姿势不对，请倒立打款")
+            }
+          }
+        };
+      })
+    </script>
+  </body>
+
+  </html>
 </body>
+
 </html>

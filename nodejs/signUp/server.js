@@ -21,19 +21,27 @@ var server = http.createServer(function (request, response) {
 
   /******** 从这里开始看，上面不要看 ************/
 
-  // if (path === "/") {
-  //   response.statusCode = 200
-  //   var string = fs.readFileSync('index.html', 'utf8')
-  //   response.write(string)
-  //   response.end()
-  // } else 
   if (path === "/") {
     response.statusCode = 200
     var string = fs.readFileSync('signUp.html', 'utf8')
     response.write(string)
     response.end()
+  } else
+  if (path === "/signUp" && method === 'POST') {
+    request.on('data', chunk => {
+      let json = JSON.parse(chunk.toString())
+      console.log(json)
+    });
+    
+    response.statusCode = 200
+    response.end()
+  } else {
+    response.statusCode = 400
+    response.setHeader('Content-Type', 'text/html; charset=utf-8')
+    response.write('请求错误，请返回')
+    response.end()
   }
-  
+
 
   /******** 代码结束，下面不要看 ************/
 })

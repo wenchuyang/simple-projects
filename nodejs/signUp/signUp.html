@@ -10,11 +10,14 @@
     h1 {
       margin: 0;
     }
-    input, button {
+
+    input,
+    button {
       border: none;
       outline: none;
       background-color: transparent;
     }
+
     .form-wrapper {
       margin: 40px auto;
       display: flex;
@@ -26,9 +29,11 @@
       border: 1px solid #ccc;
       border-radius: 1.2rem;
     }
+
     .title {
       margin-bottom: 1.2rem;
     }
+
     .form {
       display: flex;
       flex-direction: column;
@@ -36,6 +41,7 @@
       justify-content: center;
       width: 100%;
     }
+
     .form .item {
       display: flex;
       justify-content: center;
@@ -43,19 +49,23 @@
       margin-bottom: 0.8rem;
       width: 100%;
     }
+
     .form .name {
       width: 28%;
       text-align: right;
     }
+
     .form .value {
       width: 72%;
       height: 1.8rem;
       border: 1px solid #bbb;
       border-radius: 4px;
     }
+
     .form .value:focus {
       border-color: #666;
     }
+
     .form .btn {
       margin-top: 1.2rem;
       width: 88%;
@@ -95,9 +105,26 @@
 </body>
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-  $("#signUpForm").on("submit", (e)=>{
+  $("#signUpForm").on("submit", (e) => {
     e.preventDefault()
-    
+    let hash = {}
+    let keys = ['userName', 'email', 'password', 'passwordComformation']
+    keys.forEach((key) => {
+      hash[key] = $("#signUpForm").find(`[name=${key}]`).val()
+    })
+    $.ajax({
+      url: '/signUp',
+      method: 'POST',
+      dataType: 'json',
+      contentType: 'application/json',
+      data: JSON.stringify(hash),
+      error: function () {
+        console.log("error");
+      },
+      success: function () {
+        console.log("success");
+      }
+    })
   })
 </script>
 

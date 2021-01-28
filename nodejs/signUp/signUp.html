@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>注册</title>
+  <style>
+    h1 {
+      margin: 0;
+    }
+    input, button {
+      border: none;
+      outline: none;
+      background-color: transparent;
+    }
+    .form-wrapper {
+      margin: 40px auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 24rem;
+      padding: 1.6rem 2.8rem 1.6rem;
+      border: 1px solid #ccc;
+      border-radius: 1.2rem;
+    }
+    .title {
+      margin-bottom: 1.2rem;
+    }
+    .form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+    .form .item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 0.8rem;
+      width: 100%;
+    }
+    .form .name {
+      width: 28%;
+      text-align: right;
+    }
+    .form .value {
+      width: 72%;
+      height: 1.8rem;
+      border: 1px solid #bbb;
+      border-radius: 4px;
+    }
+    .form .value:focus {
+      border-color: #666;
+    }
+    .form .btn {
+      margin-top: 1.2rem;
+      width: 88%;
+      padding: 0.4rem;
+      color: #fff;
+      font-size: 1.2rem;
+      background-color: #4AC8F0;
+      border: 1px solid #bbb;
+      border-radius: 0.6rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="form-wrapper">
+    <h1 class="title">注册</h1>
+    <form action="" class="form" id="signUpForm">
+      <label class="item">
+        <span class="name">用户名：</span>
+        <input class="value" type="text" name="userName">
+      </label>
+      <label class="item">
+        <span class="name">邮箱：</span>
+        <input class="value" type="email" name="email">
+      </label>
+      <label class="item">
+        <span class="name">密码：</span>
+        <input class="value" type="password" name="password">
+      </label>
+      <label class="item">
+        <span class="name">确认密码：</span>
+        <input class="value" type="password" name="passwordComformation">
+      </label>
+      <button type="submit" class="btn">注册</button>
+    </form>
+  </div>
+</body>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  $("#signUpForm").on("submit", (e)=>{
+    e.preventDefault()
+    
+  })
+</script>
+
+</html>

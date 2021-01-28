@@ -28,13 +28,42 @@ var server = http.createServer(function (request, response) {
     response.end()
   } else
   if (path === "/signUp" && method === 'POST') {
+    let data=[];
     request.on('data', chunk => {
-      let json = JSON.parse(chunk.toString())
-      console.log(json)
+      json = JSON.parse(chunk.toString())
+      Object.keys(json).forEach((key, index)=>{
+        // let item = {}
+        // item[key] = json[key]
+        data[index] = json[key]
+      })
+    }).on("end", () => {
+      let [userName, email, password, passwordConfirmation] = data
+      if (email.indexOf('@')===-1 || email.indexOf('@')===email.length) {
+        response.statusCode = 400
+        response.setHeader('Content-Type', 'text/json; charset=utf-8')
+        response.write(`{
+          "success": false,
+          "email": "invalid"
+        }`)
+      } else if(password!==passwordConfirmation) {
+        response.statusCode = 400
+        response.setHeader('Content-Type', 'text/json; charset=utf-8')
+        response.write(`{
+          "success": false,
+          "password": "notMatch"
+        }`)
+      } else {
+        response.statusCode = 200
+        response.write(`{
+          "success": true
+        }`)
+      }
+      response.end()
     });
     
-    response.statusCode = 200
-    response.end()
+    // response.statusCode = 200
+    // response.setHeader('Content-Type', 'text/json; charset=utf-8')
+    // response.end()
   } else {
     response.statusCode = 400
     response.setHeader('Content-Type', 'text/html; charset=utf-8')

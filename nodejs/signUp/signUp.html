@@ -89,7 +89,7 @@
       </label>
       <label class="item">
         <span class="name">邮箱：</span>
-        <input class="value" type="email" name="email">
+        <input class="value" name="email">
       </label>
       <label class="item">
         <span class="name">密码：</span>
@@ -115,14 +115,23 @@
     $.ajax({
       url: '/signUp',
       method: 'POST',
-      dataType: 'json',
+      dataType: 'text',
       contentType: 'application/json',
       data: JSON.stringify(hash),
-      error: function () {
-        console.log("error");
+      success: function(success) {
+        let data = JSON.parse(success)
+        console.log(data)
+        alert("success")
       },
-      success: function () {
-        console.log("success");
+      error: function(err) {
+        let data = JSON.parse(err.responseText)
+        if (!data.success) {
+          if(data.hasOwnProperty("email") && data["email"] === "invalid") {
+            alert("邮箱地址不合法，请检查并重新输入")
+          } else if(data.hasOwnProperty("password") && data["password"] === "notMatch") {
+            alert("确认密码与密码不匹配，请重新输入")
+          }
+        }
       }
     })
   })

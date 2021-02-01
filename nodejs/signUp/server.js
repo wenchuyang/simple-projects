@@ -57,6 +57,16 @@ var server = http.createServer(function (request, response) {
         response.write(`{
           "success": true
         }`)
+        let users = fs.readFileSync('./database.db', 'utf8')
+        users = JSON.parse(users)
+        users.push({
+          "userName": userName, 
+          "email": email,
+          "password": password
+        })
+        let userStr = JSON.stringify(users)
+        fs.writeFileSync('./database.db', userStr)
+        console.log(users)
       }
       response.end()
     });

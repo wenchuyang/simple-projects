@@ -53,20 +53,34 @@ var server = http.createServer(function (request, response) {
           "password": "notMatch"
         }`)
       } else {
-        response.statusCode = 200
-        response.write(`{
-          "success": true
-        }`)
         let users = fs.readFileSync('./database.db', 'utf8')
         users = JSON.parse(users)
-        users.push({
-          "userName": userName, 
-          "email": email,
-          "password": password
+        let found = false;
+        users.forEach(user=>{
+          if(user.email === email) {
+            found = true
+          }
         })
-        let userStr = JSON.stringify(users)
-        fs.writeFileSync('./database.db', userStr)
-        console.log(users)
+        console.log(found)
+        if (found) {
+          response.statusCode = 400
+          response.write(`{
+            "success": false,
+            "email": "existed"
+          }`)
+        } else {
+          response.statusCode = 200
+          users.push({
+            "userName": userName, 
+            "email": email,
+            "password": password
+          })
+          let userStr = JSON.stringify(users)
+          fs.writeFileSync('./database.db', userStr)
+          response.write(`{
+            "success": true
+          }`)
+        }
       }
       response.end()
     });

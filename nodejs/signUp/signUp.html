@@ -130,6 +130,8 @@
             alert("邮箱地址不合法，请检查并重新输入")
           } else if(data.hasOwnProperty("password") && data["password"] === "notMatch") {
             alert("确认密码与密码不匹配，请重新输入")
+          } else if(data.hasOwnProperty("email") && data.email === "existed") {
+            alert("邮箱已存在，注册失败")
           }
         }
       }

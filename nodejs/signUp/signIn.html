@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>注册</title>
+  <title>登录</title>
   <style>
     h1 {
       margin: 0;
@@ -82,12 +82,8 @@
 
 <body>
   <div class="form-wrapper">
-    <h1 class="title">注册</h1>
-    <form action="" class="form" id="signUpForm">
-      <label class="item">
-        <span class="name">用户名：</span>
-        <input class="value" type="text" name="userName">
-      </label>
+    <h1 class="title">登录</h1>
+    <form action="" class="form" id="signInForm">
       <label class="item">
         <span class="name">邮箱：</span>
         <input class="value" name="email">
@@ -96,44 +92,36 @@
         <span class="name">密码：</span>
         <input class="value" type="password" name="password">
       </label>
-      <label class="item">
-        <span class="name">确认密码：</span>
-        <input class="value" type="password" name="passwordComformation">
-      </label>
-      <button type="submit" class="btn">注册</button>
-      <a href="../signIn.html">已有账号？去登录</a>
+      <button type="submit" class="btn">登录</button>
+      <a href="../signUp.html">没有账号？去注册</a>
     </form>
   </div>
 </body>
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-  $("#signUpForm").on("submit", (e) => {
+  $("#signInForm").on("submit", (e) => {
     e.preventDefault()
     let hash = {}
-    let keys = ['userName', 'email', 'password', 'passwordComformation']
+    let keys = ['email', 'password']
     keys.forEach((key) => {
-      hash[key] = $("#signUpForm").find(`[name=${key}]`).val()
+      hash[key] = $("#signInForm").find(`[name=${key}]`).val()
     })
     $.ajax({
-      url: '/signUp',
+      url: '/signIn',
       method: 'POST',
       dataType: 'text',
       contentType: 'application/json',
       data: JSON.stringify(hash),
       success: function(success) {
-        let data = JSON.parse(success)
-        console.log(data)
-        alert("success")
+        window.location.href='../index.html'
       },
       error: function(err) {
         let data = JSON.parse(err.responseText)
         if (!data.success) {
-          if(data.hasOwnProperty("email") && data["email"] === "invalid") {
-            alert("邮箱地址不合法，请检查并重新输入")
-          } else if(data.hasOwnProperty("password") && data["password"] === "notMatch") {
-            alert("确认密码与密码不匹配，请重新输入")
-          } else if(data.hasOwnProperty("email") && data.email === "existed") {
-            alert("邮箱已存在，注册失败")
+          if(data.hasOwnProperty("info") && data["info"] === "user") {
+            alert("查无此人")
+          } else if (data.hasOwnProperty("info") && data["info"] === "password") {
+            alert("密码输错啦")
           }
         }
       }

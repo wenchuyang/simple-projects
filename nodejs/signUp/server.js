@@ -21,22 +21,25 @@ var server = http.createServer(function (request, response) {
 
   /******** 从这里开始看，上面不要看 ************/
 
-  if (path === "/") {
+  if (path === '/' || (path === '/signUp.html' && method === 'GET')) {
     response.statusCode = 200
     var string = fs.readFileSync('signUp.html', 'utf8')
     response.write(string)
     response.end()
   } else
-  if (path === "/signUp" && method === 'POST') {
+  if (path === '/index.html') {
+    response.statusCode = 200
+    var string = fs.readFileSync('index.html', 'utf8')
+    response.write(string)
+    response.end()
+  } else if (path === '/signUp' && method === 'POST') {
     let data=[];
     request.on('data', chunk => {
       json = JSON.parse(chunk.toString())
       Object.keys(json).forEach((key, index)=>{
-        // let item = {}
-        // item[key] = json[key]
         data[index] = json[key]
       })
-    }).on("end", () => {
+    }).on('end', () => {
       let [userName, email, password, passwordConfirmation] = data
       if (email.indexOf('@')===-1 || email.indexOf('@')===email.length) {
         response.statusCode = 400
@@ -55,13 +58,12 @@ var server = http.createServer(function (request, response) {
       } else {
         let users = fs.readFileSync('./database.db', 'utf8')
         users = JSON.parse(users)
-        let found = false;
+        let found = false
         users.forEach(user=>{
           if(user.email === email) {
             found = true
           }
         })
-        console.log(found)
         if (found) {
           response.statusCode = 400
           response.write(`{
@@ -84,10 +86,51 @@ var server = http.createServer(function (request, response) {
       }
       response.end()
     });
-    
-    // response.statusCode = 200
-    // response.setHeader('Content-Type', 'text/json; charset=utf-8')
-    // response.end()
+  } else if (path === '/signIn' && method === 'POST') {
+    let data={};
+    request.on('data', chunk => {
+      json = JSON.parse(chunk.toString())
+      Object.keys(json).forEach((key, index)=>{
+        data[key] = json[key]
+      })
+    }).on('end', () => {
+      let users = fs.readFileSync('./database.db', 'utf8')
+      users = JSON.parse(users)
+      let found = false
+      let loginUser = {}
+      users.forEach((user)=>{
+        if (user.email === data.email) {
+          found = true
+          loginUser = user
+        }
+      })      
+      if (found && loginUser.password === data.password) {
+        response.statusCode = 200
+        // var string = fs.readFileSync('index.html', 'utf8')
+        // response.write(string)
+        response.write(`{
+          "success": true
+        }`)
+      } else if (found) {
+        response.statusCode = 400
+        response.write(`{
+          "success": false,
+          "info": "password"
+        }`)
+      } else {
+        response.statusCode = 400
+        response.write(`{
+          "success": false,
+          "info": "user"
+        }`)
+      }
+      response.end()
+    })
+  } else if (path === '/signIn.html' && method === 'GET') {
+    response.statusCode = 200
+    var string = fs.readFileSync('signIn.html', 'utf8')
+    response.write(string)
+    response.end()
   } else {
     response.statusCode = 400
     response.setHeader('Content-Type', 'text/html; charset=utf-8')

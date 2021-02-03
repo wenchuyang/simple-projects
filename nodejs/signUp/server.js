@@ -30,6 +30,28 @@ var server = http.createServer(function (request, response) {
   if (path === '/index.html') {
     response.statusCode = 200
     var string = fs.readFileSync('index.html', 'utf8')
+    var cookies = {};
+    request.headers.cookie && request.headers.cookie.split(';').forEach(function( Cookie ) {
+        var parts = Cookie.split('=');
+        cookies[ parts[ 0 ].trim() ] = ( parts[ 1 ] || '' ).trim();
+    });
+    // 拿到name为sign_in_email的cookie，再到数据库里去找这个email，通过email找到用户名，将用户名显示出来
+    if (cookies.sign_in_email) {
+      let users = JSON.parse(fs.readFileSync('./database.db', 'utf8'))
+      let loginUser = {}
+      users.forEach(user => {
+        if (user.email === cookies.sign_in_email) {
+          loginUser = user
+        }
+      })
+      if (Object.keys(loginUser).length) { // 一般情况能登上去肯定这个值是存在的
+        string = string.replace('&&&用户&&&', loginUser.userName)
+      } else {
+        string = string.replace('&&&用户&&&','')
+      }
+    } else {
+      string = string.replace('&&&用户&&&','')
+    }
     response.write(string)
     response.end()
   } else if (path === '/signUp' && method === 'POST') {
@@ -105,9 +127,9 @@ var server = http.createServer(function (request, response) {
         }
       })      
       if (found && loginUser.password === data.password) {
-        response.statusCode = 200
-        // var string = fs.readFileSync('index.html', 'utf8')
-        // response.write(string)
+        response.writeHead(200, {
+          'Set-Cookie': [`sign_in_email=${data.email}`]
+        })
         response.write(`{
           "success": true
         }`)

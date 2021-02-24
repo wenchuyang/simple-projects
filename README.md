@@ -59,3 +59,7 @@
 ### 价格输入计算器(/priceCalculator.html)
 不用输入小数点的价格输入计算器
 [点此预览](https://wenchuyang.github.io/simple-projects/element/priceCalculator.html)
+
+## Webpack 测试(webpackDemo)
+使用 webpack 打包工具做的一个 demo 。
+包括了 babel-loader 、 sass-loader 和 html-webpack-plugin 插件的使用，命令行执行 `npx webpack` 即可输出计算出的文件。

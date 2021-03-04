@@ -19,19 +19,7 @@
 
 <body>
     <div id="app">
-        <div>
-            <span>Book Name: </span>
-            <span id="bookName">__bookName__</span>
-        </div>
-        <div>
-            <span>Stocks:</span>
-            <span id="stocks">__stocks__</span>
-        </div>
-        <div>
-            <button id="addOne">Add One</button>
-            <button id="minusOne">Minus One</button>
-            <button id="reset">Reset</button>
-        </div>
+        
     </div>
 </body>
 <script>
@@ -40,67 +28,110 @@
 2. 改写为 MVC 模式
 3. 使用 vue 改写
 */
-    fakeData()   
-    init()
-    bindEvents()
 
+/**
+ * 1. model 是数据模型，控制与后台交互的部分
+ * 2. view 控制与页面交互的部分
+ * 3. controller 连接 model 和 view
+ * 
+*/
 
-    function bindEvents() {
-        $("#app").on("click", "#addOne", () => {
-            axios.post("books/1", {
-                bookName: $("#bookName").text(),
-                stocks: $("#stocks").text() - 0 + 1
-            }).then(function (response) {
-                let { bookName, stocks } = JSON.parse(response.data)
-                $("#bookName").html(bookName)
-                $("#stocks").html(stocks)
+    fakeData()
+    var model = {
+        data: {
+            bookName: "",
+            stocks: 0,
+            id: ""
+        },
+        fetch(id) {
+            return axios.get(`books/${id}`).then(response => {
+                this.data = response.data
             })
-        })
-
-        $("#app").on("click", "#minusOne", () => {
-            axios.post("books/1", {
-                bookName: $("#bookName").text(),
-                stocks: $("#stocks").text() - 0 - 1
-            }).then(function (response) {
-                let { bookName, stocks } = JSON.parse(response.data)
-                $("#bookName").html(bookName)
-                $("#stocks").html(stocks)
+        },
+        update(data) {
+            return axios.post(`books/${this.data.id}`, data).then(response => {
+                this.data = response.data
             })
-        })
-
-        $("#app").on("click", "#reset", () => {
-            axios.post("books/1", {
-                bookName: $("#bookName").text(),
-                stocks: 0
-            }).then(function (response) {
-                let { bookName, stocks } = JSON.parse(response.data)
-                $("#bookName").html(bookName)
-                $("#stocks").html(stocks)
-            })
-        })
+        }
+    }
+    var view = {
+        el: "#app",
+        template: `
+            <div>
+                <span>Book Name: </span>
+                <span id="bookName">__bookName__</span>
+            </div>
+            <div>
+                <span>Stocks:</span>
+                <span id="stocks">__stocks__</span>
+            </div>
+            <div>
+                <button id="addOne">Add One</button>
+                <button id="minusOne">Minus One</button>
+                <button id="reset">Reset</button>
+            </div>
+        `,
+        render: function(data) {
+            let newHtml = this.template.replace("__bookName__", data.bookName)
+                .replace("__stocks__", data.stocks)
+            $(this.el).html(newHtml)
+        }
     }
 
-    // 页面初始化
-    function init() {
-        axios.get("books/1").then(response => {
-            let { bookName, stocks } = response.data
-            $("#app").html($("#app").html().replace("__bookName__", bookName)
-                .replace("__stocks__", stocks))
-        })
+    var controller = {
+        init(options) {
+            this.model = options.model
+            this.view = options.view
+            this.model.fetch(1).then(() => {
+                this.view.render(this.model.data)
+            })
+            this.bindEvents()
+        },
+        addOne() {
+            this.model.data.stocks = $("#stocks").text()-0 + 1
+            this.model.update(this.model.data).then(() => {
+                this.view.render(this.model.data)
+            })
+        },
+        minusOne() {
+            this.model.data.stocks = $("#stocks").text()-0 - 1
+            this.model.update(this.model.data).then(() => {
+                this.view.render(this.model.data)
+            })
+        },
+        reset() {
+            this.model.data.stocks = 0
+            this.model.update(this.model.data).then(() => {
+                this.view.render(this.model.data)
+            })
+        },
+        bindEvents() {
+            // 这里的 this 是 controller , 如果不对下边这几个函数进行 this 的绑定的话，那它们的 this 指的就是这个元素本身
+            $(this.view.el).on("click", "#addOne", this.addOne.bind(this))
+            $(this.view.el).on("click", "#minusOne", this.minusOne.bind(this))
+            $(this.view.el).on("click", "#reset", this.reset.bind(this))
+        }
     }
+
+    controller.init({model: model, view: view})
+
+
+    
+ 
 
     // axios 伪造数据
     function fakeData() {
         let book = {
             bookName: "《The Secret Garden》",
-            stocks: 12
+            stocks: 12,
+            id: 1
         }
         axios.interceptors.response.use(function (response) {
             if (response.config.url === "books/1" && response.config.method === "get") {
                 response.data = book
             } else if (response.config.url === "books/1" && response.config.method === "post") {
                 book = response.config.data
-                response.data = book
+                response.data = JSON.parse(book)  // config.data 里边的数据是字符串，这里为了与上面保持统一直接转成了 JSON 格式
             }
             return response;
         }, function (error) {

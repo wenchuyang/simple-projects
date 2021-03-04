@@ -63,3 +63,7 @@
 ## Webpack 测试(webpackDemo)
 使用 webpack 打包工具做的一个 demo 。
 包括了 babel-loader 、 sass-loader 和 html-webpack-plugin 插件的使用，命令行执行 `npx webpack` 即可输出计算出的文件。
+
+## axios 测试(axiosDemo)
+使用 axios 做一个数据伪造，其中 server.js 文件用来做一个后台，只对根目录请求返回 index.html , 其他请求一律瞎写。
+直接运行 `node server.js 8888`

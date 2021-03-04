@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axios Demo</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+        integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+        crossorigin="anonymous"></script>
+    <style>
+        #app {
+            margin: 20px auto;
+            width: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <span>Book Name: </span>
+            <span id="bookName">__bookName__</span>
+        </div>
+        <div>
+            <span>Stocks:</span>
+            <span id="stocks">__stocks__</span>
+        </div>
+        <div>
+            <button id="addOne">Add One</button>
+            <button id="minusOne">Minus One</button>
+            <button id="reset">Reset</button>
+        </div>
+    </div>
+</body>
+<script>
+    /*
+1. 代码优化
+2. 改写为 MVC 模式
+3. 使用 vue 改写
+*/
+    fakeData()   
+    init()
+    bindEvents()
+
+
+    function bindEvents() {
+        $("#app").on("click", "#addOne", () => {
+            axios.post("books/1", {
+                bookName: $("#bookName").text(),
+                stocks: $("#stocks").text() - 0 + 1
+            }).then(function (response) {
+                let { bookName, stocks } = JSON.parse(response.data)
+                $("#bookName").html(bookName)
+                $("#stocks").html(stocks)
+            })
+        })
+
+        $("#app").on("click", "#minusOne", () => {
+            axios.post("books/1", {
+                bookName: $("#bookName").text(),
+                stocks: $("#stocks").text() - 0 - 1
+            }).then(function (response) {
+                let { bookName, stocks } = JSON.parse(response.data)
+                $("#bookName").html(bookName)
+                $("#stocks").html(stocks)
+            })
+        })
+
+        $("#app").on("click", "#reset", () => {
+            axios.post("books/1", {
+                bookName: $("#bookName").text(),
+                stocks: 0
+            }).then(function (response) {
+                let { bookName, stocks } = JSON.parse(response.data)
+                $("#bookName").html(bookName)
+                $("#stocks").html(stocks)
+            })
+        })
+    }
+
+    // 页面初始化
+    function init() {
+        axios.get("books/1").then(response => {
+            let { bookName, stocks } = response.data
+            $("#app").html($("#app").html().replace("__bookName__", bookName)
+                .replace("__stocks__", stocks))
+        })
+    }
+
+    // axios 伪造数据
+    function fakeData() {
+        let book = {
+            bookName: "《The Secret Garden》",
+            stocks: 12
+        }
+        axios.interceptors.response.use(function (response) {
+            if (response.config.url === "books/1" && response.config.method === "get") {
+                response.data = book
+            } else if (response.config.url === "books/1" && response.config.method === "post") {
+                book = response.config.data
+                response.data = book
+            }
+            return response;
+        }, function (error) {
+            return Promise.reject(error);
+        });
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+</html>

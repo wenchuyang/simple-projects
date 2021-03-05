@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,27 +24,91 @@
     </div>
 </body>
 <script>
+/**
+ * 使用 class 改写
+ * 替换成 vue
+*/
+
     fakeData()
-    var model = {
+
+    class Model {
+        constructor({options}) {
+            this.data = options.data
+            this.resource = options.resource
+        }
+        fetch(id) {
+            return axios.get(`${this.resource}/${id}`).then(response => {
+                this.data = response.data
+            })
+        }
+        update(data) {
+            return axios.post(`${this.resource}/${this.data.id}`, data).then(response => {
+                this.data = response.data
+            })
+        }
+    }
+    
+    class View {
+        constructor(el, template) {
+            this.el = el
+            this.template = template
+        }
+        render(data) {
+            let newHtml = this.template
+            for(key in data) {
+                newHtml = newHtml.replace(`__${key}__`, data[key])
+            }
+            $(this.el).html(newHtml)
+        }
+    }
+
+    class Controller {
+        constructor() {}
+        init(options) {
+            this.model = options.model
+            this.view = options.view
+            this.model.fetch(1).then(() => {
+                this.view.render(this.model.data)
+            })
+            this.bindEvents()
+        }
+        addOne() {
+            this.model.data.stocks = $("#stocks").text()-0 + 1
+            this.model.update(this.model.data).then(() => {
+                this.view.render(this.model.data)
+            })
+        }
+        minusOne() {
+            this.model.data.stocks = $("#stocks").text()-0 - 1
+            this.model.update(this.model.data).then(() => {
+                this.view.render(this.model.data)
+            })
+        }
+        reset() {
+            this.model.data.stocks = 0
+            this.model.update(this.model.data).then(() => {
+                this.view.render(this.model.data)
+            })
+        }
+        bindEvents() {
+            // 这里的 this 是 controller , 如果不对下边这几个函数进行 this 的绑定的话，那它们的 this 指的就是这个元素本身
+            $(this.view.el).on("click", "#addOne", this.addOne.bind(this))
+            $(this.view.el).on("click", "#minusOne", this.minusOne.bind(this))
+            $(this.view.el).on("click", "#reset", this.reset.bind(this))
+        }
+    }
+
+    
+    let model = new Model({
         data: {
             bookName: "",
             stocks: 0,
             id: ""
         },
-        fetch(id) {
-            return axios.get(`books/${id}`).then(response => {
-                this.data = response.data
-            })
-        },
-        update(data) {
-            return axios.post(`books/${this.data.id}`, data).then(response => {
-                this.data = response.data
-            })
-        }
-    }
-    var view = {
-        el: "#app",
-        template: `
+        resource: "books"
+    })
+
+    let view = new View("#app", `
             <div>
                 <span>Book Name: </span>
                 <span id="bookName">__bookName__</span>
@@ -57,54 +122,11 @@
                 <button id="minusOne">Minus One</button>
                 <button id="reset">Reset</button>
             </div>
-        `,
-        render: function(data) {
-            let newHtml = this.template.replace("__bookName__", data.bookName)
-                .replace("__stocks__", data.stocks)
-            $(this.el).html(newHtml)
-        }
-    }
+        `)
 
-    var controller = {
-        init(options) {
-            this.model = options.model
-            this.view = options.view
-            this.model.fetch(1).then(() => {
-                this.view.render(this.model.data)
-            })
-            this.bindEvents()
-        },
-        addOne() {
-            this.model.data.stocks = $("#stocks").text()-0 + 1
-            this.model.update(this.model.data).then(() => {
-                this.view.render(this.model.data)
-            })
-        },
-        minusOne() {
-            this.model.data.stocks = $("#stocks").text()-0 - 1
-            this.model.update(this.model.data).then(() => {
-                this.view.render(this.model.data)
-            })
-        },
-        reset() {
-            this.model.data.stocks = 0
-            this.model.update(this.model.data).then(() => {
-                this.view.render(this.model.data)
-            })
-        },
-        bindEvents() {
-            // 这里的 this 是 controller , 如果不对下边这几个函数进行 this 的绑定的话，那它们的 this 指的就是这个元素本身
-            $(this.view.el).on("click", "#addOne", this.addOne.bind(this))
-            $(this.view.el).on("click", "#minusOne", this.minusOne.bind(this))
-            $(this.view.el).on("click", "#reset", this.reset.bind(this))
-        }
-    }
-
+    let controller = new Controller()
     controller.init({model: model, view: view})
 
-
-    
- 
 
     // axios 伪造数据
     function fakeData() {

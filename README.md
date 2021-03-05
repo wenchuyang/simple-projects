@@ -67,3 +67,6 @@
 ## axios 测试(axiosDemo)
 使用 axios 做一个数据伪造，其中 server.js 文件用来做一个后台，只对根目录请求返回 index.html , 其他请求一律瞎写。
 直接运行 `node server.js 8888`
+
+## vue 使用测试(vueDemo)
+使用 vue 改写之前写过的一些代码

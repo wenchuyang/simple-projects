@@ -72,3 +72,4 @@
 使用 vue 改写之前写过的一些代码。
 对于之前的 axiosDemo 的代码，先将其用 class 语法再次封装，拿到最终的 MVC 模式的代码，然后使用 vue 来进行改写。
 首先将 class View 换成 Vue ， 在 new Vue() 的时候参考 vue 的官方文档里的语法说明。然后使用 vue 自带的 click 事件绑定 `v-on:click="addOne()"` 替换掉之前在 Controller 里的 bindEvents 事件。至此代码功能与之前完全一致。
+此时 Controller 里边只剩下一个 init ， 使用 created 钩子可以代替它。至此 vue 完全替代了原先的 controller 和 view。

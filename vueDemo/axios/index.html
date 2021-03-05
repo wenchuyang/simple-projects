@@ -49,18 +49,6 @@
         }
     }
 
-    class Controller {
-        constructor() {}
-        init(options) {
-            this.model = options.model
-            this.view = options.view
-            this.model.fetch(1).then(() => {
-                this.view.bookName = this.model.data.bookName
-                this.view.stocks = this.model.data.stocks
-            })
-        }
-    }
-
     
     let model = new Model({
         data: {
@@ -94,6 +82,12 @@
                 </div>    
             </div>
         `,
+        created: function() {
+            model.fetch(1).then(() => {
+                this.bookName = model.data.bookName
+                this.stocks = model.data.stocks
+            })
+        },
         methods: {
             addOne() {
                 model.data.stocks = this.stocks-0 + 1
@@ -118,10 +112,6 @@
             }
         }
     })
-
-    let controller = new Controller()
-    controller.init({model: model, view: view})
-
 
     // axios 伪造数据
     function fakeData() {

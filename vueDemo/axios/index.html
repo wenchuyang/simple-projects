@@ -10,6 +10,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
         integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
         crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <style>
         #app {
             margin: 20px auto;
@@ -32,7 +33,7 @@
     fakeData()
 
     class Model {
-        constructor({options}) {
+        constructor(options) {
             this.data = options.data
             this.resource = options.resource
         }
@@ -47,20 +48,6 @@
             })
         }
     }
-    
-    class View {
-        constructor(el, template) {
-            this.el = el
-            this.template = template
-        }
-        render(data) {
-            let newHtml = this.template
-            for(key in data) {
-                newHtml = newHtml.replace(`__${key}__`, data[key])
-            }
-            $(this.el).html(newHtml)
-        }
-    }
 
     class Controller {
         constructor() {}
@@ -68,33 +55,9 @@
             this.model = options.model
             this.view = options.view
             this.model.fetch(1).then(() => {
-                this.view.render(this.model.data)
+                this.view.bookName = this.model.data.bookName
+                this.view.stocks = this.model.data.stocks
             })
-            this.bindEvents()
-        }
-        addOne() {
-            this.model.data.stocks = $("#stocks").text()-0 + 1
-            this.model.update(this.model.data).then(() => {
-                this.view.render(this.model.data)
-            })
-        }
-        minusOne() {
-            this.model.data.stocks = $("#stocks").text()-0 - 1
-            this.model.update(this.model.data).then(() => {
-                this.view.render(this.model.data)
-            })
-        }
-        reset() {
-            this.model.data.stocks = 0
-            this.model.update(this.model.data).then(() => {
-                this.view.render(this.model.data)
-            })
-        }
-        bindEvents() {
-            // 这里的 this 是 controller , 如果不对下边这几个函数进行 this 的绑定的话，那它们的 this 指的就是这个元素本身
-            $(this.view.el).on("click", "#addOne", this.addOne.bind(this))
-            $(this.view.el).on("click", "#minusOne", this.minusOne.bind(this))
-            $(this.view.el).on("click", "#reset", this.reset.bind(this))
         }
     }
 
@@ -107,22 +70,54 @@
         },
         resource: "books"
     })
-
-    let view = new View("#app", `
+    
+    let view = new Vue({
+        el: "#app",
+        data: {
+            bookName: "",
+            stocks: ""
+        },
+        template: `
             <div>
-                <span>Book Name: </span>
-                <span id="bookName">__bookName__</span>
+                <div>
+                    <span>Book Name: </span>
+                    <span id="bookName">{{bookName}}</span>
+                </div>
+                <div>
+                    <span>Stocks:</span>
+                    <span id="stocks">{{stocks}}</span>
+                </div>
+                <div>
+                    <button v-on:click="addOne()">Add One</button>
+                    <button v-on:click="minusOne()">Minus One</button>
+                    <button v-on:click="reset()">Reset</button>
+                </div>    
             </div>
-            <div>
-                <span>Stocks:</span>
-                <span id="stocks">__stocks__</span>
-            </div>
-            <div>
-                <button id="addOne">Add One</button>
-                <button id="minusOne">Minus One</button>
-                <button id="reset">Reset</button>
-            </div>
-        `)
+        `,
+        methods: {
+            addOne() {
+                model.data.stocks = this.stocks-0 + 1
+                model.update(model.data).then(() => {
+                    this.bookName = model.data.bookName
+                    this.stocks = model.data.stocks
+                })
+            },
+            minusOne() {
+                model.data.stocks = this.stocks-0 - 1
+                model.update(model.data).then(() => {
+                    this.bookName = model.data.bookName
+                    this.stocks = model.data.stocks
+                })
+            },
+            reset() {
+                model.data.stocks = 0
+                model.update(model.data).then(() => {
+                    this.bookName = model.data.bookName
+                    this.stocks = model.data.stocks
+                })
+            }
+        }
+    })
 
     let controller = new Controller()
     controller.init({model: model, view: view})

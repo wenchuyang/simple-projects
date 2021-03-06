@@ -18,13 +18,14 @@ let vm = new Vue({
         flag: false
     },
     template: `
-        <button v-on:click="toggle()">click me</button>
-        <div v-if="flag">
-            我会默认隐藏的哦
+        <div>
+            <button v-on:click="toggle()">click me</button>
+            <div v-if="flag">
+                我会默认隐藏的哦
+            </div>
         </div>`,
     methods: {
         toggle: function() {
-            console.log("触发了toggle")
             this.flag = !this.flag
         }
     }

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tab</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        #app {
+            display: flex;
+        }
+        .page {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 28px;
+        }
+        ol li {
+            list-style: none;
+            margin-top: 24px;
+        }
+        /*  上面的样式都是没用的，不用管  */
+        .actived {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <ol>
+            <li v-for="item in tabs" v-on:click="selected = item" 
+                v-bind:class="{ actived: selected === item }">{{ item }}</li>
+        </ol>
+        <div class="page">
+            <template v-if="selected === tabs[0]">This is a HOME page</template>
+            <template v-if="selected === tabs[1]">You have found the CATEGORIES page</template>
+            <template v-if="selected === tabs[2]">Here is ARCHIEVES</template>
+            <template v-if="selected === tabs[3]">I am the BEST</template>
+        </div>
+    </div>
+</body>
+<script>
+    let vm = new Vue({
+        el: "#app",
+        created: function() {
+            this.selected = this.tabs[0]
+        },
+        data: {
+            tabs: ["HOME", "CATEGORIES", "ARCHIVES", "ABOUT ME"],
+            selected: ""
+        },
+        methods: {}
+    })
+</script>
+</html>

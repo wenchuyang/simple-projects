@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style id="jsbin-css">
+        .images {
+            display: flex;
+            align-items: flex-start;
+            transition: all 0.5s;
+        }
+    
+        .window {
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        
+    </div>
+</body>
+<script>
+let vm = new Vue({
+    el: "#app",
+    template: `
+        <div class="window" v-bind:style="{ width: width+'px' }">
+            <div class="images" v-bind:style="{ transform: transformValue }">
+                <img v-for="(img, index) in imgs" :src="img" :width="width" :alt="index">
+            </div>
+            <div class="buttons" id="buttons">
+                <button v-on:click="move(0)">按钮1</button>
+                <button v-on:click="move(1)">按钮2</button>
+                <button v-on:click="move(2)">按钮3</button>
+                <button v-on:click="move(3)">按钮4</button>
+            </div>
+        </div>`,
+    data: {
+        transformValue: "",
+        width: 420,
+        imgs: [
+            "https://i.loli.net/2020/08/25/A8dC3DteIuWJXUH.jpg",
+            "https://i.loli.net/2020/08/25/3XSto2RBJWaIUN6.jpg",
+            "https://i.loli.net/2020/08/25/doSWNPmyRbrxB6v.jpg",
+            "https://i.loli.net/2020/08/25/HPBbdLfezovjAiE.jpg"
+        ]
+    },
+    methods: {
+        move: function(index) {
+            this.transformValue = `translateX(${-index*this.width}px)`
+        }
+    }
+})
+</script>
+</html>

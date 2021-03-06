@@ -78,4 +78,12 @@
 
 ### clickDisappear
 jsEvent/clickdisappear.html 中页面有一个按钮，点击会出现一行字，再次点击消失，用 jquery 写的，这里使用 vue 进行改写，功能不变。
+[点此预览](https://wenchuyang.github.io/simple-projects/vueDemo/clickDisappear.html)
 
+### swiper
+基于 swiper/simple.html 的轮播，点击按钮切换到对应的图片，去除了自动进行切换的部分。
+[点此预览](https://wenchuyang.github.io/simple-projects/vueDemo/swiper.html)
+
+### tab
+使用 vue 写一个 tab 页。
+[点此预览](https://wenchuyang.github.io/simple-projects/vueDemo/tab.html)

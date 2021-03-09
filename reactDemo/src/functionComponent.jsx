@@ -9,5 +9,5 @@ function Welcome(props) {
 const element = <Welcome name="Wency" age="18" />;
 ReactDOM.render(
     element,
-    document.getElementById('app')
+    document.getElementById('root')
 );

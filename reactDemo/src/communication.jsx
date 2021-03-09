@@ -1,17 +1,44 @@
-function Scoreboard() {
-    return (
-        <div className="scoreboard">
-            <div className="score-part">
-                <div className="red">一号选手小红</div>
-                <div>score1</div>
+class App extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            time0: new Date(),
+            red: "0000",
+            blue: "0000"
+        }
+    }
+    redSuccess() {
+        this.setState({
+            red: new Date - this.state.time0
+        })
+    }
+    blueSuccess() {
+        this.setState({
+            blue: new Date - this.state.time0
+        })
+    }
+    render() {
+        return (
+            <div>
+                <div className="scoreboard">
+                    <div className="score-part">
+                        <div className="red">一号选手小红用时</div>
+                        <div>{this.state.red}</div>
+                    </div>
+                    <div className="score-part">
+                        <div className="blue">二号选手小蓝用时</div>
+                        <div>{this.state.blue}</div>
+                    </div>
+                </div>
+                <div>
+                    <PlayerRed success={this.redSuccess.bind(this)} />
+                    <PlayerBlue success={this.blueSuccess.bind(this)} />  
+                </div>
             </div>
-            <div className="score-part">
-                <div className="blue">二号选手小蓝</div>
-                <div>score2</div>
-            </div>
-        </div>
-    )
+        )   
+    }
 }
+
 class PlayerRed extends React.Component {
     constructor(props) {
         super(props)
@@ -30,7 +57,7 @@ class PlayerRed extends React.Component {
             })
             if (position >= 100) {
                 clearInterval(timerID)
-                console.log("小红跑完啦")
+                props.success()
             }
         }, 5)
         
@@ -61,7 +88,7 @@ class PlayerBlue extends React.Component {
             })
             if (position >= 100) {
                 clearInterval(timerID)
-                console.log("我跑完啦")
+                props.success()
             }
         }, 60)
         
@@ -75,17 +102,6 @@ class PlayerBlue extends React.Component {
     }
 }
 
-function App() {
-    return (
-        <div>
-            <Scoreboard />
-            <div>
-                <PlayerRed />
-                <PlayerBlue />  
-            </div>
-        </div>
-    )
-}
 
 const element = <App />
 ReactDOM.render(element, document.getElementById('root'));

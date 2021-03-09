@@ -90,5 +90,9 @@ jsEvent/clickdisappear.html 中页面有一个按钮，点击会出现一行字�
 
 ## React Demo(reactDemo)
 目录下使用 babel 搭建了一个开发环境，其中 index.html 页面是一个入口文件， main.js 是 babel 翻译出来的文件，src 里边是用作测试的源码。使用时需要运行 `npx babel src/xxx.jsx --watch --out-file main.js` 以进行实时编译。
+
 ### 函数组件(src/functionComponent.jsx)
 一个函数组件，接收并展示 name 和 age。
+
+### 父子组件通信(src/communication.jsx)
+为了学习父子组件通信而写的一个赛跑项目。包括 `src/communication.jsx` 和 `src/communication.css` , 依旧是用 `index.html` 作为入口文件。

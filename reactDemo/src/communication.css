@@ -1,0 +1,26 @@
+.scoreboard {
+    display: flex;
+    justify-content: center;
+}
+.scoreboard .score-part {
+    padding: 12px 32px;
+}
+.track{
+    margin-bottom: 20px;
+    width: 90%;
+    padding: 10px 0;
+    border: 2px solid green;
+}
+.track .player {
+    display: inline-block;
+    padding: 0 6px;
+    border-radius: 50%;
+}
+.red {
+    background-color: red;
+    color: white;
+}
+.blue {
+    background-color: blue;
+    color: white;
+}

@@ -1,0 +1,10 @@
+.dad {
+    display: inline-block;
+    margin: 20px 24px;
+    border: 1px solid #ccc;
+}
+.son {
+    margin: 24px;
+    padding: 12px;
+    border: 1px solid #c35;
+}

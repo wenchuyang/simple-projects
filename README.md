@@ -96,3 +96,5 @@ jsEvent/clickdisappear.html 中页面有一个按钮，点击会出现一行字�
 
 ### 父子组件通信(src/communication.jsx)
 为了学习父子组件通信而写的一个赛跑项目。包括 `src/communication.jsx` 和 `src/communication.css` , 依旧是用 `index.html` 作为入口文件。
+1. 先写出一个简单的样式框架
+2. 给两名赛跑选手添加事件让它们能够动起来

@@ -1,3 +1,6 @@
+* {
+    box-sizing: border-box;
+}
 .scoreboard {
     display: flex;
     justify-content: center;
@@ -6,13 +9,17 @@
     padding: 12px 32px;
 }
 .track{
+    position: relative;
     margin-bottom: 20px;
     width: 90%;
-    padding: 10px 0;
+    height: 32px;
     border: 2px solid green;
 }
 .track .player {
     display: inline-block;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
     padding: 0 6px;
     border-radius: 50%;
 }

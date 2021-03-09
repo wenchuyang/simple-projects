@@ -99,3 +99,11 @@ jsEvent/clickdisappear.html 中页面有一个按钮，点击会出现一行字�
 1. 先写出一个简单的样式框架
 2. 给两名赛跑选手添加事件让它们能够动起来
 3. 跑到终点调用 success 方法更新记分牌上的数字
+
+### 组件通信2(src/communication2.jsx)
+一个简单的父子组件通信 demo 。
+父组件将 amount 通过 props 传递给子组件，实现父对子的通信。
+父组件将 add 函数通过 props 传递给子组件，子组件在点击“充值十元”的按钮的时候调用这个函数，修改 amount 的值，实现子对父的通信。
+
+### 组件通信3(src/communication3.jsx)
+兄弟组件通信

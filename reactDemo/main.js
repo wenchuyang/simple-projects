@@ -1,38 +1,187 @@
 "use strict";
 
-function Scoreboard() {
-  return /*#__PURE__*/React.createElement("div", {
-    className: "scoreboard"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "score-part"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "red"
-  }, "\u4E00\u53F7\u9009\u624B\u5C0F\u7EA2"), /*#__PURE__*/React.createElement("div", null, "score1")), /*#__PURE__*/React.createElement("div", {
-    className: "score-part"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "blue"
-  }, "\u4E8C\u53F7\u9009\u624B\u5C0F\u84DD"), /*#__PURE__*/React.createElement("div", null, "score2")));
+const {
+  createStore
+} = Redux;
+
+function counterReducer(state, action) {
+  state = state || {
+    amount: 10000
+  };
+
+  switch (action.type) {
+    case "pay":
+      return {
+        amount: state.amount - action.payload
+      };
+
+    default:
+      return state;
+  }
 }
 
-function PlayerRed() {
-  return /*#__PURE__*/React.createElement("div", {
-    className: "track"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "player red"
-  }, "1"));
+let store = createStore(counterReducer);
+store.subscribe(() => {
+  render();
+});
+
+class Dad1 extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  pay() {
+    store.dispatch({
+      type: "pay",
+      payload: 10
+    });
+  }
+
+  render() {
+    return /*#__PURE__*/React.createElement("div", {
+      className: "dad"
+    }, "Dad1 amount: ", this.props.amount, /*#__PURE__*/React.createElement("button", {
+      onClick: this.pay.bind(this)
+    }, "\u4ED8\u6B3E10"), /*#__PURE__*/React.createElement(Son1, {
+      amount: this.props.amount
+    }), /*#__PURE__*/React.createElement(Son2, {
+      amount: this.props.amount
+    }));
+  }
+
 }
 
-function PlayerBlue() {
-  return /*#__PURE__*/React.createElement("div", {
-    className: "track"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "player blue"
-  }, "2"));
+class Dad2 extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  pay() {
+    store.dispatch({
+      type: "pay",
+      payload: 50
+    });
+  }
+
+  render() {
+    return /*#__PURE__*/React.createElement("div", {
+      className: "dad"
+    }, "Dad2 amount: ", this.props.amount, /*#__PURE__*/React.createElement("button", {
+      onClick: this.pay.bind(this)
+    }, "\u4ED8\u6B3E50"), /*#__PURE__*/React.createElement(Son3, {
+      amount: this.props.amount
+    }), /*#__PURE__*/React.createElement(Son4, {
+      amount: this.props.amount
+    }));
+  }
+
 }
 
-function App() {
-  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Scoreboard, null), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(PlayerRed, null), /*#__PURE__*/React.createElement(PlayerBlue, null)));
+class Son1 extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  pay() {
+    store.dispatch({
+      type: "pay",
+      payload: 100
+    });
+  }
+
+  render() {
+    return /*#__PURE__*/React.createElement("div", {
+      className: "son"
+    }, "amount: ", this.props.amount, /*#__PURE__*/React.createElement("button", {
+      onClick: this.pay
+    }, "\u4ED8\u6B3E100"));
+  }
+
 }
 
-const element = /*#__PURE__*/React.createElement(App, null);
-ReactDOM.render(element, document.getElementById('root'));
+class Son2 extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  pay() {
+    store.dispatch({
+      type: "pay",
+      payload: 200
+    });
+  }
+
+  render() {
+    return /*#__PURE__*/React.createElement("div", {
+      className: "son"
+    }, "amount: ", this.props.amount, /*#__PURE__*/React.createElement("button", {
+      onClick: this.pay
+    }, "\u4ED8\u6B3E200"));
+  }
+
+}
+
+class Son3 extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  pay() {
+    store.dispatch({
+      type: "pay",
+      payload: 300
+    });
+  }
+
+  render() {
+    return /*#__PURE__*/React.createElement("div", {
+      className: "son"
+    }, "amount: ", this.props.amount, /*#__PURE__*/React.createElement("button", {
+      onClick: this.pay
+    }, "\u4ED8\u6B3E300"));
+  }
+
+}
+
+class Son4 extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  pay() {
+    store.dispatch({
+      type: "pay",
+      payload: 400
+    });
+  }
+
+  render() {
+    return /*#__PURE__*/React.createElement("div", {
+      className: "son"
+    }, "amount: ", this.props.amount, /*#__PURE__*/React.createElement("button", {
+      onClick: this.pay
+    }, "\u4ED8\u6B3E400"));
+  }
+
+}
+
+class App extends React.Component {
+  constructor() {
+    super();
+  }
+
+  render() {
+    return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Dad1, {
+      amount: store.getState().amount
+    }), /*#__PURE__*/React.createElement(Dad2, {
+      amount: store.getState().amount
+    }));
+  }
+
+}
+
+function render() {
+  ReactDOM.render( /*#__PURE__*/React.createElement(App, null), document.getElementById("root"));
+}
+
+render();

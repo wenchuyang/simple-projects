@@ -133,3 +133,8 @@ function counterReducer(state, action ) {
 }
 let store = createStore(counterReducer)
 ```
+
+## redux demo(reduxDemo)
+
+### 搭配原生 js 使用(reduxwithJs.js)
+官网的实例，纯净的 redux 使用，不包含其它任何东西。

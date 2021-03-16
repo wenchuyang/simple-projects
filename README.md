@@ -135,6 +135,15 @@ let store = createStore(counterReducer)
 ```
 
 ## redux demo(reduxDemo)
+redux 可以配合 react 一起使用，比如 reactDemo/src/communication4.jsx ; 也可以单独使用，比如 reduxDemo/reduxwithJs.js ; 但我们通常使用的是另一种，React-Redux 。
 
-### 搭配原生 js 使用(reduxwithJs.js)
+### 搭配原生 js 使用(reduxWithJs)
 官网的实例，纯净的 redux 使用，不包含其它任何东西。
+
+### 搭配 react 使用(redux-with-react/react-app)
+新建了一个 react 项目，删除了所有不必要的东西，然后在 src/index.js 里边写了所有代码。
+预览样式使用 `yarn start`
+
+### React-Redux(redux-with-react/react-redux)
+预览使用 `yarn start`
+使用 React-Redux 传递 store 的信息。

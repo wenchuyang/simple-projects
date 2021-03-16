@@ -13,6 +13,7 @@ function counter(state, action) {
     switch (action.type) {
         case "add":
             return {
+                ...state,
                 number: state.number + 1
             }
         default:

@@ -1,4 +1,4 @@
-let code = `/* 画一只龙猫送给最最喜欢的你 */
+let code = `/* 画一只龙猫送给你 */
 /* 首先，让我们准备一张龙猫色的纸 */
 .picture{
   background: radial-gradient(ellipse at center, #d2ceb1 0%,#6a6642 100%);
@@ -189,6 +189,7 @@ let code = `/* 画一只龙猫送给最最喜欢的你 */
 let codeDOM = document.querySelector('.code')
 let styleDOM = document.querySelector('.styleTag')
 var duration = 50
+let skip = false
 
 $('.speed').on('click', 'button', function(e){
   let $speed = $(e.target)
@@ -204,8 +205,12 @@ $('.speed').on('click', 'button', function(e){
     case 'fast':
       duration = 5
       break
+    case 'skip':
+      skip = true
+      break
   }
 })
+
 writeCode(code, codeDOM, styleDOM)
 
 function writeCode(code, codeDOM, styleDOM){
@@ -213,11 +218,17 @@ function writeCode(code, codeDOM, styleDOM){
   let id
   id = setTimeout(function run(){
     n++
-    codeDOM.innerHTML = code.slice(0, n)
-    codeDOM.scrollTop = codeDOM.scrollHeight
-    styleDOM.innerHTML = code.slice(0, n)
-    if(n <= code.length){
-      id = setTimeout(run, duration)
+    if (skip) {
+      codeDOM.innerHTML = code
+      codeDOM.scrollTop = codeDOM.scrollHeight
+      styleDOM.innerHTML = code
+    } else {
+      codeDOM.innerHTML = code.slice(0, n)
+      codeDOM.scrollTop = codeDOM.scrollHeight
+      styleDOM.innerHTML = code.slice(0, n)
+      if(n <= code.length){
+        id = setTimeout(run, duration)
+      }
     }
   }, duration)
 }
